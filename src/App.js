@@ -59,7 +59,7 @@ class App extends PureComponent {
     try {
       PalyReactView = require(`./${this.state.name}/PlayReact`).default;
     } catch(err) {
-      console.error('You have not do this exercise');
+      alert('You have not do this exercise');
     }
 
     return (
