@@ -29,7 +29,7 @@ const styles = theme => ({
   }
 });
 
-const Names = ['liuxiong', 'suwei','cyy'];
+const Names = ['liuxiong', 'suwei','cyy', 'wujunwei'];
 
 function Empty(props) {
   return <div>查无此人</div>
