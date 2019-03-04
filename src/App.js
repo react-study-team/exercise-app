@@ -29,10 +29,10 @@ const styles = theme => ({
   }
 });
 
-const Names = ['liuxiong', 'suwei'];
+const Names = ['liuxiong', 'suwei','cyy'];
 
 function Empty(props) {
-  return <div>空空如也</div>
+  return <div>查无此人</div>
 }
 
 class App extends PureComponent {
