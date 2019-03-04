@@ -1,28 +1,93 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { PureComponent } from 'react';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
-class App extends Component {
+const styles = theme => ({
+  top: {
+    display: 'flex',
+    alignItems: 'center',
+    background: '#EEE',
+  },
+  button: {
+    marginRight: theme.spacing.unit * 2,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+  content: {
+    position: 'absolute',
+    top: '36px',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});
+
+const Names = ['liuxiong', 'suwei'];
+
+function Empty(props) {
+  return <div>空空如也</div>
+}
+
+class App extends PureComponent {
+  state = {
+    name: Names[0],
+    open: false,
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
   render() {
+    let { classes } = this.props;
+    let PalyReactView = Empty; 
+    try {
+      PalyReactView = require(`./${this.state.name}/PlayReact`).default;
+    } catch(err) {
+      console.error('You have not do this exercise');
+    }
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+      <div>
+        <div className={classes.top}>
+          <Button className={classes.button} onClick={this.handleOpen}>
+            Select User
+          </Button>
+          <Select
+            open={this.state.open}
+            onClose={this.handleClose}
+            onOpen={this.handleOpen}
+            value={this.state.name}
+            onChange={this.handleChange}
+            inputProps={{
+              name: 'name',
+              id: 'demo-controlled-open-select',
+            }}
           >
-            Learn React
-          </a>
-        </header>
+            {Names.map(name => <MenuItem key={name} value={name}>{name}</MenuItem>)}
+          </Select>
+        </div>
+        <div className={classes.content}>
+          <PalyReactView />
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
