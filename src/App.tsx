@@ -18,7 +18,7 @@ const styles = theme => ({
     minWidth: 120,
   },
   content: {
-    position: 'absolute',
+    position: 'absolute' as 'absolute',
     top: '36px',
     bottom: 0,
     left: 0,
@@ -29,13 +29,13 @@ const styles = theme => ({
   }
 });
 
-const Names = ['liuxiong', 'suwei','cyy', 'wujunwei'];
+const Names = ['liuxiong', 'suwei'];
 
 function Empty(props) {
-  return <div>查无此人</div>
+  return <div>空空如也</div>
 }
 
-class App extends PureComponent {
+class App extends PureComponent<any, any> {
   state = {
     name: Names[0],
     open: false,
@@ -55,12 +55,11 @@ class App extends PureComponent {
 
   render() {
     let { classes } = this.props;
-    let PalyReactView = Empty; 
+    let PalyReactView = Empty;
     try {
       PalyReactView = require(`./${this.state.name}/PlayReact`).default;
-    } catch(err) {
+    } catch (err) {
       console.error('You have not do this exercise');
-      alert('看什么看，做作业去');
     }
 
     return (
